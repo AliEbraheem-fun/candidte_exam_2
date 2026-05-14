@@ -13,7 +13,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
-body{background:var(--bg);color:var(--text);font-family:-apple-system,'Segoe UI',system-ui,sans-serif;display:flex;height:100vh;overflow:hidden}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,'Segoe UI',system-ui,sans-serif;display:flex;height:100vh;height:100dvh;overflow:hidden}
 
 /* SIDEBAR */
 .sidebar{width:270px;min-width:270px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
@@ -213,13 +213,79 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,'Segoe UI'
 .back-btn:hover{color:var(--accent)}
 
 /* EXPAND ALL */
-.expand-bar{display:flex;gap:8px;margin-bottom:14px}
+.expand-bar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+
+/* MENU TOGGLE (mobile hamburger) */
+.menu-toggle{display:none;background:var(--surface);border:1px solid var(--border);color:var(--text);width:34px;height:34px;border-radius:6px;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;flex-shrink:0;padding:0}
+.menu-toggle:hover,.menu-toggle:focus{border-color:var(--accent);color:var(--accent);outline:none}
+
+/* SEARCH */
+.search-wrap{position:relative;flex:1;max-width:360px;min-width:0}
+.search-input{width:100%;padding:6px 28px 6px 30px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.82rem;outline:none;transition:border-color .12s;font-family:inherit}
+.search-input:focus{border-color:var(--accent)}
+.search-input::placeholder{color:var(--muted)}
+.search-input::-webkit-search-cancel-button{display:none}
+.search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem;pointer-events:none}
+.search-clear{position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.1rem;line-height:1;padding:0 6px;border-radius:4px;display:none}
+.search-clear:hover{color:var(--text)}
+.search-clear.show{display:block}
+
+/* SEARCH RESULTS */
+.sr-header{font-size:.85rem;color:var(--muted);margin-bottom:12px}
+.sr-empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:.9rem;line-height:1.6}
+.sr-list{display:flex;flex-direction:column;gap:8px}
+.sr-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;cursor:pointer;transition:all .12s}
+.sr-item:hover{border-color:var(--accent);background:rgba(88,166,255,.04);transform:translateY(-1px)}
+.sr-topic{font-size:.68rem;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.sr-title{font-size:.9rem;font-weight:600;line-height:1.4;margin-bottom:4px}
+.sr-snippet{font-size:.8rem;color:var(--muted);line-height:1.5}
+.sr-snippet mark,.sr-title mark{background:rgba(227,179,65,.25);color:var(--orange);border-radius:2px;padding:0 2px}
+
+/* SIDEBAR OVERLAY (mobile) */
+.sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:99;display:none;opacity:0;transition:opacity .2s}
+.sidebar-overlay.show{display:block;opacity:1}
+
+/* FLASH (after search jump) */
+@keyframes flashHL{0%,100%{box-shadow:0 0 0 0 rgba(88,166,255,0)}30%,70%{box-shadow:0 0 0 3px rgba(88,166,255,.55)}}
+.q-item.flash{animation:flashHL 1.6s ease}
 
 @media(max-width:720px){
-  .sidebar{display:none}
+  body{font-size:14px}
+  .sidebar{position:fixed;left:0;top:0;bottom:0;height:100dvh;z-index:100;transform:translateX(-100%);transition:transform .25s ease;display:flex;box-shadow:2px 0 12px rgba(0,0,0,.4)}
+  .sidebar.open{transform:translateX(0)}
+  .menu-toggle{display:inline-flex}
+  .topbar{padding:8px 12px;flex-wrap:wrap;gap:8px}
+  .topbar-left{flex:1;min-width:0}
+  .topbar-title{max-width:none;font-size:.82rem}
+  .search-wrap{order:99;flex:1 0 100%;max-width:none}
+  .topbar-right{flex-wrap:wrap;justify-content:flex-end}
+  .content{padding:14px 12px}
   .topics-grid{grid-template-columns:1fr}
   .t-grid{grid-template-columns:1fr}
   .match-container{flex-direction:column}
+  .q-hdr{padding:12px 14px;flex-wrap:wrap;gap:8px}
+  .q-ttl{font-size:.85rem;width:100%;order:3}
+  .q-hdr .copy-btn{margin-left:0}
+  .q-body{padding:0 14px 14px}
+  .a-text{padding:14px;font-size:.88rem;line-height:1.7}
+  .iq-box{padding:12px}
+  .iq-item{padding:10px 12px}
+  .iq-q{font-size:.86rem}
+  .quiz-card{padding:18px 16px}
+  .q-text{font-size:.95rem}
+  .res-card{padding:24px 16px}
+  .res-grid{gap:6px}
+  .res-item{padding:10px 6px}
+  .res-n{font-size:1.15rem}
+  .topic-card{padding:14px}
+  .home-title{font-size:1.2rem}
+  .home-sub{font-size:.8rem;margin-bottom:16px}
+  .sum-box{padding:12px}
+  .tf-options{flex-direction:column}
+}
+
+@media(max-width:400px){
+  .topbar-right .btn-sm{padding:4px 8px;font-size:.72rem}
 }
 
 .sh-ul{list-style:none;padding:0;margin:6px 0;display:flex;flex-direction:column;gap:4px}
@@ -243,9 +309,18 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,'Segoe UI'
     <div class="progress-mini"><div class="progress-mini-fill" id="miniProgress" style="width:0%"></div></div>
   </div>
 </div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 <div class="main" id="mainArea">
   <div class="topbar" id="topbar">
-    <div class="topbar-left"><span class="topbar-title" id="topTitle">Главная</span></div>
+    <div class="topbar-left">
+      <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()" aria-label="Меню">&#9776;</button>
+      <span class="topbar-title" id="topTitle">Главная</span>
+    </div>
+    <div class="search-wrap">
+      <span class="search-icon">&#128269;</span>
+      <input class="search-input" id="searchInput" type="search" placeholder="Поиск вопросов..." autocomplete="off" oninput="onSearch(this.value)" onkeydown="if(event.key==='Escape'){this.value='';onSearch('');this.blur();}">
+      <button class="search-clear" id="searchClear" onclick="clearSearch()" aria-label="Очистить">&times;</button>
+    </div>
     <div class="topbar-right" id="topRight"></div>
   </div>
   <div class="content" id="content"></div>
@@ -394,7 +469,7 @@ function renderSidebar(){
   nav.innerHTML=h;
 }
 
-function goHome(){view='home';topicIdx=-1;renderSidebar();renderHome()}
+function goHome(){view='home';topicIdx=-1;renderSidebar();renderHome();closeSidebar();}
 
 function renderHome(){
   document.getElementById('topTitle').textContent='Главная';
@@ -422,6 +497,7 @@ function selectTopic(i,mode){
   if(!reviewSeen[TOPICS[i].id])reviewSeen[TOPICS[i].id]=new Set();
   renderSidebar();
   if(view==='review')renderReview();else startQuiz();
+  closeSidebar();
 }
 
 function renderReview(){
@@ -627,9 +703,137 @@ function updateProgress(){let total=TOPICS.reduce((s,t)=>s+t.questions.length,0)
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}
 
 document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&(e.key==='k'||e.key==='K')){e.preventDefault();document.getElementById('searchInput').focus();document.getElementById('searchInput').select();return;}
   if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
   if(e.key==='Escape')goHome();
 });
+
+// ─── SIDEBAR (mobile drawer) ───
+function toggleSidebar(){
+  document.querySelector('.sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('show');
+}
+function closeSidebar(){
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+}
+
+// ─── SEARCH ───
+let prevView=null, prevTopicIdx=-1, searchTimer=null, currentQuery='';
+
+function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+
+function highlight(text,q){
+  if(!q||!text)return esc(text||'');
+  const lower=text.toLowerCase(), ql=q.toLowerCase();
+  let out='', i=0;
+  while(i<text.length){
+    const m=lower.indexOf(ql,i);
+    if(m<0){out+=esc(text.slice(i));break;}
+    out+=esc(text.slice(i,m))+'<mark>'+esc(text.slice(m,m+ql.length))+'</mark>';
+    i=m+ql.length;
+  }
+  return out;
+}
+
+function snippet(text,q,ctx){
+  ctx=ctx||80;
+  if(!text)return '';
+  const lower=text.toLowerCase(), ql=q.toLowerCase();
+  const i=lower.indexOf(ql);
+  if(i<0)return esc(text.slice(0,160))+(text.length>160?'…':'');
+  const s=Math.max(0,i-ctx), e=Math.min(text.length,i+ql.length+ctx);
+  return (s>0?'…':'')+highlight(text.slice(s,e),q)+(e<text.length?'…':'');
+}
+
+function onSearch(v){
+  clearTimeout(searchTimer);
+  const q=v.trim();
+  document.getElementById('searchClear').classList.toggle('show', q.length>0);
+  searchTimer=setTimeout(()=>{
+    if(q.length===0){
+      if(view==='search'){
+        currentQuery='';
+        if(prevView==='review'&&prevTopicIdx>=0){topicIdx=prevTopicIdx;view='review';renderSidebar();renderReview();}
+        else{goHome();}
+      }
+      return;
+    }
+    if(view!=='search'){prevView=view;prevTopicIdx=topicIdx;view='search';renderSidebar();}
+    currentQuery=q;
+    renderSearch(q);
+  },180);
+}
+
+function clearSearch(){
+  const inp=document.getElementById('searchInput');
+  inp.value='';
+  onSearch('');
+  inp.focus();
+}
+
+function renderSearch(q){
+  document.getElementById('topTitle').textContent=`Поиск: «${q}»`;
+  document.getElementById('topRight').innerHTML=`<button class="btn-sm" onclick="goHome()">&#8962;</button>`;
+  const ql=q.toLowerCase();
+  const results=[];
+  TOPICS.forEach((t,ti)=>{
+    t.questions.forEach((qq,qi)=>{
+      const inTitle=qq.title.toLowerCase().includes(ql);
+      const allAns=(qq.paragraphs||[]).join(' ');
+      const inAns=allAns.toLowerCase().includes(ql);
+      const termHit=(qq.terms||[]).find(tm=>((tm.ru||'')+' '+(tm.en||'')+' '+(tm.df||'')).toLowerCase().includes(ql));
+      const allSum=(qq.summary||[]).join(' ');
+      const inSum=allSum.toLowerCase().includes(ql);
+      if(inTitle||inAns||termHit||inSum){
+        let snipText='', snipLabel='';
+        if(inAns){snipText=allAns;snipLabel='ответ';}
+        else if(inSum){snipText=allSum;snipLabel='шпаргалка';}
+        else if(termHit){snipText=`${termHit.ru} (${termHit.en}) — ${termHit.df}`;snipLabel='термин';}
+        results.push({ti,qi,topic:t,q:qq,snipText,snipLabel});
+      }
+    });
+  });
+  let h=`<div class="sr-header">${results.length===0?'Ничего не найдено':`Найдено: ${results.length} ${results.length===1?'результат':results.length<5?'результата':'результатов'}`}</div>`;
+  if(results.length===0){
+    h+=`<div class="sr-empty">По запросу «${esc(q)}» ничего не найдено.<br>Попробуйте другие ключевые слова.</div>`;
+  }else{
+    h+='<div class="sr-list">';
+    results.forEach(r=>{
+      h+=`<div class="sr-item" onclick="openSearchResult(${r.ti},${r.qi})">
+        <div class="sr-topic">Тема ${r.topic.id} · Вопрос ${r.q.n}${r.snipLabel?' · '+r.snipLabel:''}</div>
+        <div class="sr-title">${highlight(r.q.title,q)}</div>
+        ${r.snipText?`<div class="sr-snippet">${snippet(r.snipText,q)}</div>`:''}
+      </div>`;
+    });
+    h+='</div>';
+  }
+  document.getElementById('content').innerHTML=h;
+  document.getElementById('mainArea').scrollTo({top:0});
+}
+
+function openSearchResult(ti,qi){
+  document.getElementById('searchInput').value='';
+  document.getElementById('searchClear').classList.remove('show');
+  currentQuery='';
+  topicIdx=ti;view='review';
+  if(!reviewSeen[TOPICS[ti].id])reviewSeen[TOPICS[ti].id]=new Set();
+  renderSidebar();renderReview();
+  closeSidebar();
+  setTimeout(()=>{
+    const items=document.querySelectorAll('.q-item');
+    const item=items[qi];
+    if(item){
+      const body=item.querySelector('.q-body');
+      const chev=item.querySelector('.q-chev');
+      body.classList.add('visible');
+      chev.classList.add('open');
+      item.classList.add('flash');
+      item.scrollIntoView({behavior:'smooth',block:'start'});
+      setTimeout(()=>item.classList.remove('flash'),1700);
+    }
+  },60);
+}
 
 init();
 </script>
