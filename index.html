@@ -425,6 +425,26 @@ function colorize(text){
   return html.trim();
 }
 
+function mdTable(p){
+  const lines = p.split('\n').map(l => l.trim()).filter(Boolean);
+  if(lines.length < 2) return null;
+  if(!/^\|.*\|\s*$/.test(lines[0])) return null;
+  if(!/^\|?[\s:|-]+\|?\s*$/.test(lines[1]) || !lines[1].includes('-')) return null;
+  const parseRow = (l) => l.replace(/^\|/, '').replace(/\|\s*$/, '').split('|').map(s => s.trim());
+  const headers = parseRow(lines[0]);
+  const rows = lines.slice(2).map(parseRow);
+  let h = '<table><thead><tr>';
+  headers.forEach(c => h += '<th>' + kwColor(esc(c)) + '</th>');
+  h += '</tr></thead><tbody>';
+  rows.forEach(r => {
+    h += '<tr>';
+    r.forEach(c => h += '<td>' + kwColor(esc(c)) + '</td>');
+    h += '</tr>';
+  });
+  h += '</tbody></table>';
+  return h;
+}
+
 // ─── STATE ───
 let view='home', topicIdx=-1;
 const reviewSeen={};
@@ -495,6 +515,7 @@ function renderReview(){
     const ansHTML=q.paragraphs.map(p=>{
       const t=p.trimStart();
       if(/^<(svg|figure|img|table|h2|h3|h4|pre|div|ul|ol|blockquote)\b/i.test(t)) return p;
+      if(t.startsWith('|')){const tbl=mdTable(p); if(tbl) return tbl;}
       return `<p>${colorize(p)}</p>`;
     }).join('');
     const termsHTML=q.terms.map(tm=>`
