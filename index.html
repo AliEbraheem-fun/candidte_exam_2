@@ -543,7 +543,7 @@ function renderReview(){
         </div>`:''}
         ${q.summary&&q.summary.length?`<div class="a-section">
           <div class="sum-box">
-            <div class="sum-title">Записать на бумагу<button class="copy-btn" onclick="copySum(this)">Копировать</button></div>
+            <div class="sum-title">Конспект<button class="copy-btn" onclick="copySum(this)">Копировать</button></div>
             <ul class="sum-list">${q.summary.map(b=>'<li class="sum-item">'+colorize(b)+'</li>').join('')}</ul>
           </div>
         </div>`:''}
