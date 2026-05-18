@@ -327,13 +327,19 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,'Segoe UI'
 }
 
 /* LANDSCAPE PHONES: width above the 720px mobile breakpoint but height is small.
-   Collapse the sidebar to a drawer so the full width is available for content. */
-@media(orientation:landscape) and (max-height:500px) and (max-width:1024px){
+   Collapse the sidebar to a drawer so the full width is available for content.
+   Threshold: orientation:landscape + max-height:600px. Phones in landscape have
+   short CSS height (~360-500px on Redmi/iPhone/Pixel); tablets in landscape are
+   ≥744px tall so the rule doesn't fire for them. */
+@media(orientation:landscape) and (max-height:600px){
   .sidebar{position:fixed;left:0;top:0;bottom:0;height:100dvh;z-index:100;transform:translateX(-100%);transition:transform .25s ease;display:flex;box-shadow:2px 0 12px rgba(0,0,0,.4)}
   .sidebar.open{transform:translateX(0)}
   .menu-toggle{display:inline-flex}
   .content{padding:14px 18px;max-width:none}
   .topics-grid{grid-template-columns:repeat(2,1fr)}
+  .topbar{padding:8px 12px;flex-wrap:wrap;gap:8px}
+  .topbar-left{flex:1;min-width:0}
+  .topbar-title{max-width:none}
 }
 </style>
 </head>
