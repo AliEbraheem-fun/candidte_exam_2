@@ -325,6 +325,16 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,'Segoe UI'
 @media(max-width:400px){
   .topbar-right .btn-sm{padding:4px 8px;font-size:.72rem}
 }
+
+/* LANDSCAPE PHONES: width above the 720px mobile breakpoint but height is small.
+   Collapse the sidebar to a drawer so the full width is available for content. */
+@media(orientation:landscape) and (max-height:500px) and (max-width:1024px){
+  .sidebar{position:fixed;left:0;top:0;bottom:0;height:100dvh;z-index:100;transform:translateX(-100%);transition:transform .25s ease;display:flex;box-shadow:2px 0 12px rgba(0,0,0,.4)}
+  .sidebar.open{transform:translateX(0)}
+  .menu-toggle{display:inline-flex}
+  .content{padding:14px 18px;max-width:none}
+  .topics-grid{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
 <body>
