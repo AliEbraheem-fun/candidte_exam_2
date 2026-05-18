@@ -270,41 +270,56 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,'Segoe UI'
 .a-text table tr:last-child td{border-bottom:none}
 
 @media(max-width:720px){
-  body{font-size:14px}
+  body{font-size:16px}
   .sidebar{position:fixed;left:0;top:0;bottom:0;height:100dvh;z-index:100;transform:translateX(-100%);transition:transform .25s ease;display:flex;box-shadow:2px 0 12px rgba(0,0,0,.4)}
   .sidebar.open{transform:translateX(0)}
-  .menu-toggle{display:inline-flex}
-  .topbar{padding:8px 12px;flex-wrap:wrap;gap:8px}
+  .menu-toggle{display:inline-flex;width:40px;height:40px;font-size:1.15rem}
+  .topbar{padding:10px 12px;flex-wrap:wrap;gap:8px}
   .topbar-left{flex:1;min-width:0}
-  .topbar-title{max-width:none;font-size:.82rem}
+  .topbar-title{max-width:none;font-size:.9rem}
   .search-wrap{order:99;flex:1 0 100%;max-width:none}
+  .search-input{padding:9px 32px 9px 34px;font-size:.92rem}
   .topbar-right{flex-wrap:wrap;justify-content:flex-end}
   .content{padding:14px 12px}
   .topics-grid{grid-template-columns:1fr}
-  .t-grid{grid-template-columns:1fr}
+  .t-grid{grid-template-columns:1fr;gap:8px}
+  .t-ru{font-size:.95rem}
+  .t-en{font-size:.82rem}
+  .t-df{font-size:.85rem;line-height:1.45}
+  .t-card{padding:10px 12px}
   .match-container{flex-direction:column}
-  .q-hdr{padding:12px 14px;flex-wrap:wrap;gap:8px}
-  .q-ttl{font-size:.85rem;width:100%;order:3}
-  .q-hdr .copy-btn{margin-left:0}
+  .q-hdr{padding:14px 16px;min-height:52px;flex-wrap:wrap;gap:10px}
+  .q-ttl{font-size:.95rem;width:100%;order:3;line-height:1.4}
+  .q-hdr .copy-btn{margin-left:0;padding:6px 10px;font-size:.78rem}
   .q-body{padding:0 14px 14px}
-  .a-text{padding:14px;font-size:.88rem;line-height:1.7}
+  .a-text{padding:14px;font-size:.95rem;line-height:1.65}
+  .a-text h3{font-size:1.02rem;margin:16px 0 8px}
+  .a-text h3:first-child{margin-top:0}
+  .a-text h4{font-size:.95rem;margin:12px 0 6px}
   .a-text figure{padding:10px;margin:12px 0}
-  .a-text table{font-size:.78rem}
-  .a-text table th,.a-text table td{padding:6px 8px}
+  .a-text figcaption{font-size:.82rem}
+  .a-text pre{font-size:.85rem;padding:12px 14px;line-height:1.5;-webkit-overflow-scrolling:touch}
+  .a-text table{font-size:.85rem}
+  .a-text table th{padding:8px 10px;font-size:.72rem}
+  .a-text table td{padding:8px 10px}
   .iq-box{padding:12px}
-  .iq-item{padding:10px 12px}
-  .iq-q{font-size:.86rem}
+  .iq-item{padding:12px 14px}
+  .iq-q{font-size:.92rem;line-height:1.5}
   .quiz-card{padding:18px 16px}
-  .q-text{font-size:.95rem}
+  .q-text{font-size:1rem}
   .res-card{padding:24px 16px}
   .res-grid{gap:6px}
   .res-item{padding:10px 6px}
   .res-n{font-size:1.15rem}
   .topic-card{padding:14px}
-  .home-title{font-size:1.2rem}
-  .home-sub{font-size:.8rem;margin-bottom:16px}
-  .sum-box{padding:12px}
+  .home-title{font-size:1.3rem}
+  .home-sub{font-size:.85rem;margin-bottom:16px}
+  .sum-box{padding:14px}
+  .sum-item{font-size:.92rem;line-height:1.55}
+  .a-label{font-size:.72rem}
   .tf-options{flex-direction:column}
+  .sr-title{font-size:.95rem}
+  .sr-snippet{font-size:.85rem}
 }
 
 @media(max-width:400px){
